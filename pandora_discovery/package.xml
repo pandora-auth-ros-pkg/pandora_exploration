@@ -1,0 +1,22 @@
+<package format="2">
+  <name>pandora_discovery</name>
+  <version>0.0.0</version>
+  <description>Contains pandora discovery packages</description>
+
+  <maintainer email="tsirif@gmail.com">Tsirigotis Christos</maintainer>
+  <maintainer email="lykartsis.giannis@gmail.com">Lykartsis Ioannis</maintainer>
+
+  <license>BSD</license>
+
+  <url type="bugtracker">https://github.com/pandora-auth-ros-pkg/pandora_discovery/issues</url>
+  <url type="repository">https://github.com/pandora-auth-ros-pkg/pandora_discovery.git</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>pandora_sensor_coverage</exec_depend>
+  <exec_depend>pandora_sensor_planner</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
