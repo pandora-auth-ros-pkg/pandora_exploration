@@ -2,7 +2,7 @@
 *
 * Software License Agreement (BSD License)
 *
-*  Copyright (c) 2014, P.A.N.D.O.R.A. Team.
+*  Copyright (c) 2014 - 2015, P.A.N.D.O.R.A. Team.
 *  All rights reserved.
 *
 *  Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,13 @@
 *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 *  POSSIBILITY OF SUCH DAMAGE.
 *
-* Author: Chris Zalidis <zalidis@gmail.com>
+* Author: Chris Zalidis <zalidis@gmail.com>,
+          Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#include "pandora_explorer/cost_functions/alignment_cost_function.h"
+#include "pandora_exploration/cost_functions/alignment_cost_function.h"
 
-namespace pandora_explorer {
+namespace pandora_exploration {
 
 AlignmentCostFunction::AlignmentCostFunction(double scale,
                                              const geometry_msgs::PoseStamped& robot_pose)
@@ -50,7 +51,7 @@ void AlignmentCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   // iterate over all frontiers
   BOOST_FOREACH(Frontier & frontier, *frontier_list)
   {
-    // if frontier has a already negative cost no point to run this cost function
+    // if frontier has already negative cost no point to run this cost function
     if (frontier.cost < 0) {
       continue;
     }
@@ -62,6 +63,7 @@ void AlignmentCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
     if (frontier.path.poses.size() < 10) {
       goal_pose = frontier.path.poses.back();
     } else {
+      // this is done to calculate the true alignment to goal of the robot footprint
       goal_pose = frontier.path.poses[9];
     }
 
@@ -78,4 +80,4 @@ void AlignmentCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   }
 }
 
-}  // namespace pandora_explorer
+}  // namespace pandora_exploration

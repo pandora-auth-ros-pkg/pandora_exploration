@@ -1,10 +1,10 @@
 #include <costmap_2d/cost_values.h>
 #include <boost/foreach.hpp>
 
-#include "pandora_explorer/costmap_tools.h"
-#include "pandora_explorer/map_frontier_search.h"
+#include "pandora_exploration/costmap_tools.h"
+#include "pandora_exploration/map_frontier_search.h"
 
-namespace pandora_explorer {
+namespace pandora_exploration {
 
 using costmap_2d::LETHAL_OBSTACLE;
 using costmap_2d::NO_INFORMATION;
@@ -86,7 +86,7 @@ Frontier MapFrontierSearch::buildNewFrontier(unsigned int initial_cell, unsigned
   Frontier output;
   output.centroid.x = 0;
   output.centroid.y = 0;
-  output.size = 1;
+  output.size = 1;  // htan 1
   output.min_distance = std::numeric_limits<double>::infinity();
 
   // record initial contact point for frontier
@@ -161,6 +161,7 @@ bool MapFrontierSearch::isNewFrontierCell(unsigned int idx, const std::vector<bo
   unsigned char* map = costmap_->getCharMap();
 
   // check that cell is unknown and not already marked as frontier
+  // frontier_flag[idx] = true means that this frontier has already marked as a valid frontier
   if (map[idx] != NO_INFORMATION || frontier_flag[idx]) {
     return false;
   }
@@ -176,4 +177,4 @@ bool MapFrontierSearch::isNewFrontierCell(unsigned int idx, const std::vector<bo
   return false;
 }
 
-}  // namespace pandora_explorer
+}  // namespace pandora_exploration

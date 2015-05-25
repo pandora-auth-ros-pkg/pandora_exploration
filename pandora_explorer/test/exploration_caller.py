@@ -4,7 +4,7 @@ import roslib
 import rospy
 import sys
 import actionlib
-from pandora_exploration_msgs.msg import DoExplorationAction, DoExplorationGoal
+from pandora_navigation_msgs.msg import DoExplorationAction, DoExplorationGoal
 
 if __name__ == '__main__':
   rospy.init_node('exploration_caller')

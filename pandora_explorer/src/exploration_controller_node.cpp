@@ -2,7 +2,7 @@
 *
 * Software License Agreement (BSD License)
 *
-*  Copyright (c) 2014, P.A.N.D.O.R.A. Team.
+*  Copyright (c) 2014 - 2015, P.A.N.D.O.R.A. Team.
 *  All rights reserved.
 *
 *  Redistribution and use in source and binary forms, with or without
@@ -35,13 +35,13 @@
 * Author: Chris Zalidis <zalidis@gmail.com>
 *********************************************************************/
 
-#include "pandora_explorer/exploration_controller.h"
+#include "pandora_exploration/exploration_controller.h"
 
 int main(int argc, char* argv[])
 {
   ros::init(argc, argv, "explorer", ros::init_options::NoSigintHandler);
 
-  pandora_explorer::ExplorationController exploration_controller;
+  pandora_exploration::ExplorationController exploration_controller;
 
   ros::spin();
 
