@@ -36,8 +36,8 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_FRONTIER_GOAL_SELECTOR_H
-#define PANDORA_EXPLORATION_FRONTIER_GOAL_SELECTOR_H
+#ifndef PANDORA_EXPLORER_FRONTIER_GOAL_SELECTOR_H
+#define PANDORA_EXPLORER_FRONTIER_GOAL_SELECTOR_H
 
 #include <string>
 #include <vector>
@@ -46,18 +46,18 @@
 #include <tf/transform_listener.h>
 #include <visualization_msgs/MarkerArray.h>
 
-#include "pandora_exploration/goal_selector.h"
-#include "pandora_exploration/frontier.h"
-#include "pandora_exploration/map_frontier_search.h"
-#include "pandora_exploration/navfn_frontier_path_generator.h"
-#include "pandora_exploration/navfn_service_frontier_path_generator.h"
+#include "pandora_explorer/goal_selector.h"
+#include "pandora_explorer/frontier.h"
+#include "pandora_explorer/map_frontier_search.h"
+#include "pandora_explorer/navfn_frontier_path_generator.h"
+#include "pandora_explorer/navfn_service_frontier_path_generator.h"
 
-#include "pandora_exploration/cost_functions/distance_cost_function.h"
-#include "pandora_exploration/cost_functions/size_cost_function.h"
-#include "pandora_exploration/cost_functions/alignment_cost_function.h"
-#include "pandora_exploration/cost_functions/visited_cost_function.h"
+#include "pandora_explorer/cost_functions/distance_cost_function.h"
+#include "pandora_explorer/cost_functions/size_cost_function.h"
+#include "pandora_explorer/cost_functions/alignment_cost_function.h"
+#include "pandora_explorer/cost_functions/visited_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 /**
   * @class FrontierGoalSelector
@@ -156,6 +156,6 @@ class FrontierGoalSelector : public GoalSelector {
   Frontier current_frontier_;
 };
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_FRONTIER_GOAL_SELECTOR_H
+#endif  // PANDORA_EXPLORER_FRONTIER_GOAL_SELECTOR_H

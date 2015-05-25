@@ -36,8 +36,8 @@
           Dimitrios Kirtsios <dimkirts>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_EXPLORATION_CONTROLLER_H
-#define PANDORA_EXPLORATION_EXPLORATION_CONTROLLER_H
+#ifndef PANDORA_EXPLORER_EXPLORATION_CONTROLLER_H
+#define PANDORA_EXPLORER_EXPLORATION_CONTROLLER_H
 
 #include <ros/ros.h>
 
@@ -46,15 +46,15 @@
 #include <actionlib/server/simple_action_server.h>
 #include <actionlib/client/simple_action_client.h>
 
-#include <pandora_navigation_msgs/DoExplorationAction.h>
+#include "pandora_exploration_msgs/DoExplorationAction.h"
 #include <move_base_msgs/MoveBaseAction.h>
 
-#include "pandora_exploration/goal_selector.h"
-#include "pandora_exploration/frontier_goal_selector.h"
+#include "pandora_explorer/goal_selector.h"
+#include "pandora_explorer/frontier_goal_selector.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
-typedef actionlib::SimpleActionServer<pandora_navigation_msgs::DoExplorationAction>
+typedef actionlib::SimpleActionServer<pandora_exploration_msgs::DoExplorationAction>
     DoExplorationServer;
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -81,7 +81,7 @@ class ExplorationController {
     * @brief Execute callback of exploration server
     * @param goal The goal 
     */
-  void executeCb(const pandora_navigation_msgs::DoExplorationGoalConstPtr& goal);
+  void executeCb(const pandora_exploration_msgs::DoExplorationGoalConstPtr& goal);
   
   /**
     * @brief Feedback callback of exploration server
@@ -150,13 +150,13 @@ class ExplorationController {
   // current goal holder
   geometry_msgs::PoseStamped current_goal_;
 
-  pandora_navigation_msgs::DoExplorationFeedback feedback_;
+  pandora_exploration_msgs::DoExplorationFeedback feedback_;
 
   boost::shared_ptr<boost::thread> computation_thread_;
 
   bool first_time_;
 };
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_EXPLORATION_CONTROLLER_H
+#endif  // PANDORA_EXPLORER_EXPLORATION_CONTROLLER_H

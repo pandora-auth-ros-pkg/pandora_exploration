@@ -36,50 +36,68 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_COST_FUNCTIONS_SIZE_COST_FUNCTION_H
-#define PANDORA_EXPLORATION_COST_FUNCTIONS_SIZE_COST_FUNCTION_H
+#ifndef PANDORA_EXPLORER_GOAL_SELECTOR_H
+#define PANDORA_EXPLORER_GOAL_SELECTOR_H
 
-#include <boost/foreach.hpp>
+#include <string>
+#include <vector>
+#include <boost/shared_ptr.hpp>
+#include <geometry_msgs/PoseStamped.h>
 
-#include "pandora_exploration/cost_functions/frontier_cost_function.h"
+namespace pandora_explorer {
 
-namespace pandora_exploration {
+/**
+  * @class GoalSelector
+  * @brief Provides an interface for goal selectors used in pandora exploration.
+  * Every goal selector implementation must adhere to this interface.
+  *
+  * This is the interface for the class that will wrap-up all the implementation
+  * of the goal selection.
+  */
+class GoalSelector {
+ public:
+  
+  /**
+    * @brief Finds next exploration goal
+    * @param goal We pass the goal that is found to this argument
+    * @return True if a goal is found
+    */
+  virtual bool findNextGoal(geometry_msgs::PoseStamped* goal) = 0;
 
   /**
-    * @class SizeCostFunction
-    * @brief A class implementing a frontier cost function using the FrontierCostFunction
-    * interface
-    * 
-    * This cost function adds costs to the frontiers based on the frontier size.
-    * Frontiers bigger in size are added higher costs. Cost are normalized to a scale 
-    * between 0 and 1. 
+    * @brief Sets a selected goal to a vector
+    * @param selected_goal A goal that has been selected by findNextGoal
     */
-  class SizeCostFunction : public FrontierCostFunction
+  virtual void setSelectedGoal(const geometry_msgs::PoseStamped& selected_goal)
   {
-   public:
+    selected_goals_.push_back(selected_goal);
+  }
 
-    /**
-      * @brief Explicit constructor for the SizeCostFunction class
-      * @param scale The weight we set on the cost function
-      */
-    explicit SizeCostFunction(double scale);
+  /**
+    * @brief Destructor for the goal selector.
+    */
+  virtual ~GoalSelector()
+  {
+  }
 
-    /**
-      * @brief Takes a list of frontiers and adds a cost to each one of them
-      * @param frontier_list A pointer to a list of frontiers that are to be evaluated.
-      * 
-      * If a frontier has already assigned a negative cost then scoreFrontiers doesn't 
-      * add any cost.
-      */
-    virtual void scoreFrontiers(const FrontierListPtr& frontier_list);
-    
+ protected:
+  /**
+    * @brief Explicit constructor for the goal selector.
+    * @param name The name of the goal selector
+    */
+  explicit GoalSelector(const std::string& name) : name_(name)
+  {
+  }
 
-    /**
-      * @brief Destructor for the SizeCostFunction class.
-      */
-    ~SizeCostFunction() {}
-  };
+ protected:
+  std::string name_;
 
-}   // namespace pandora_exploration
+  // A vector that holds all the goals that have been selected
+  std::vector<geometry_msgs::PoseStamped> selected_goals_;
+};
 
-#endif  // PANDORA_EXPLORATION_COST_FUNCTIONS_SIZE_COST_FUNCTION_H
+typedef boost::shared_ptr<GoalSelector> GoalSelectorPtr;
+
+}  // namespace pandora_explorer
+
+#endif  // PANDORA_EXPLORER_GOAL_SELECTOR_H

@@ -36,12 +36,12 @@
            Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H
-#define PANDORA_EXPLORATION_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H
+#ifndef PANDORA_EXPLORER_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H
+#define PANDORA_EXPLORER_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H
 
-#include "pandora_exploration/frontier.h"
+#include "pandora_explorer/frontier.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
   /**
     * @class FrontierCostFunction
@@ -78,6 +78,6 @@ namespace pandora_exploration {
 
   typedef boost::shared_ptr<FrontierCostFunction> FrontierCostFunctionPtr;
 
-}   // namespace pandora_exploration
+}   // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H
+#endif  // PANDORA_EXPLORER_COST_FUNCTIONS_FRONTIER_COST_FUNCTION_H

@@ -37,9 +37,9 @@
 *********************************************************************/
 // for M_E usage
 #include <cmath>
-#include "pandora_exploration/cost_functions/size_cost_function.h"
+#include "pandora_explorer/cost_functions/size_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 SizeCostFunction::SizeCostFunction(double scale) : FrontierCostFunction(scale)
 {
@@ -71,4 +71,4 @@ void SizeCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   }
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

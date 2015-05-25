@@ -36,48 +36,56 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H
-#define PANDORA_EXPLORATION_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H
+#ifndef PANDORA_EXPLORER_FRONTIER_SEARCH_H
+#define PANDORA_EXPLORER_FRONTIER_SEARCH_H
 
-#include <boost/foreach.hpp>
+#include <string>
+#include <list>
+#include <boost/shared_ptr.hpp>
 
-#include "pandora_exploration/cost_functions/frontier_cost_function.h"
+#include <geometry_msgs/Point.h>
+#include <costmap_2d/costmap_2d.h>
 
-namespace pandora_exploration {
+#include "pandora_explorer/frontier.h"
+
+namespace pandora_explorer {
+
+/**
+  * @class FrontierSearch
+  * @brief Provides an interface for the frontier searcher used in frontier goal selector.
+  * Every frontier searcher implementation must adhere to this interface. 
+  */
+class FrontierSearch {
+ public:
+  virtual std::list<Frontier> searchFrom(geometry_msgs::Point position) = 0;
 
   /**
-    * @class DistanceCostFunction
-    * @brief A class implementing a frontier cost function using the FrontierCostFunction
-    * interface
-    * 
-    * This cost function add costs to the frontiers based on the straightness and length
-    * of the path. Cost are normalized to a scale between 0 and 1. 
+    * @brief Destructor for the class FrontierSearch
     */
-  class DistanceCostFunction : public FrontierCostFunction
+  virtual ~FrontierSearch()
   {
-   public:
+  }
 
-    /**
-      * @brief Explicit constructor for the DistanceCostFunction class
-      * @param scale The weight we set on the cost function
-      */
-    explicit DistanceCostFunction(double scale);
+ protected:
+  /**
+    * @brief Constructor for the class FrontierSearch
+    * @param costmap A ptr to a costmap
+    * @param costmap_frame The frame of the costmap
+    */
+  FrontierSearch(const boost::shared_ptr<costmap_2d::Costmap2D>& costmap, std::string costmap_frame)
+    : costmap_(costmap), costmap_frame_(costmap_frame)
+  {
+  }
 
-    /**
-      * @brief Takes a list of frontiers and adds a cost to each one of them
-      * @param frontier_list A pointer to a list of frontiers that are to be evaluated.
-      * 
-      * If a frontier has already assigned a negative cost then scoreFrontiers doesn't 
-      * add any cost. Also if there is no path to a frontier it assigns a cost of -1.
-      */
-    virtual void scoreFrontiers(const FrontierListPtr& frontier_list);
+ protected:
+  
+  // shared ptr that holds the costmap
+  boost::shared_ptr<costmap_2d::Costmap2D> costmap_;
+  std::string costmap_frame_;
+};
 
-    /**
-      * @brief Destructor for the DistanceCostFunction class.
-      */
-    ~DistanceCostFunction() {}
-  };
+typedef boost::shared_ptr<FrontierSearch> FrontierSearchPtr;
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H
+#endif  // PANDORA_EXPLORER_FRONTIER_SEARCH_H

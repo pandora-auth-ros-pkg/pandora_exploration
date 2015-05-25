@@ -38,9 +38,9 @@
 #include <list>
 #include <costmap_2d/costmap_2d.h>
 #include <boost/foreach.hpp>
-#include "pandora_exploration/costmap_tools.h"
+#include "pandora_explorer/costmap_tools.h"
 #include <gtest/gtest.h>
-namespace pandora_exploration
+namespace pandora_explorer
 {
   class NeighbourFunctionTest : public ::testing::Test
   {
@@ -202,7 +202,7 @@ namespace pandora_exploration
     unsigned int result;  // result will hold the nearest cell with the value we want
     // bfs is used to decide the nearest cell.
     // Searches for value=1 starting from cell 95
-    ASSERT_TRUE(pandora_exploration::nearestCell(result, input, 0, *costmap_));
+    ASSERT_TRUE(pandora_explorer::nearestCell(result, input, 0, *costmap_));
     ASSERT_EQ(input, result);
   }
   
@@ -211,7 +211,7 @@ namespace pandora_exploration
   {
     unsigned int input = costmap_ -> getIndex(0, 0);
     unsigned int result;
-    ASSERT_TRUE(pandora_exploration::nearestCell(result, input, 100, *costmap_));
+    ASSERT_TRUE(pandora_explorer::nearestCell(result, input, 100, *costmap_));
     ASSERT_NE(input, result);
   }
   
@@ -220,7 +220,7 @@ namespace pandora_exploration
   {
     unsigned int input = std::numeric_limits<unsigned int>::max();
     unsigned int result;
-    ASSERT_FALSE(pandora_exploration::nearestCell(result, input, 1, *costmap_));
+    ASSERT_FALSE(pandora_explorer::nearestCell(result, input, 1, *costmap_));
   }
 
   /* Check if bfs works properly */
@@ -232,7 +232,7 @@ namespace pandora_exploration
     unsigned int expected_result = costmap_ -> getIndex(9, 5);
 
     unsigned int real_result;
-    ASSERT_TRUE(pandora_exploration::nearestCell(real_result, input, 100, *costmap_));
+    ASSERT_TRUE(pandora_explorer::nearestCell(real_result, input, 100, *costmap_));
     ASSERT_EQ(expected_result, real_result);
     
     printExpectationToReality(expected_result, real_result);
@@ -246,9 +246,9 @@ namespace pandora_exploration
     unsigned int input = costmap_ -> getIndex(4, 3);
     unsigned int expected_result = costmap_ -> getIndex(4, 5);
     unsigned int real_result;
-    ASSERT_TRUE(pandora_exploration::nearestCell(real_result, input, 100, *costmap_));
+    ASSERT_TRUE(pandora_explorer::nearestCell(real_result, input, 100, *costmap_));
     ASSERT_EQ(expected_result, real_result);
     printExpectationToReality(expected_result, real_result);
   }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

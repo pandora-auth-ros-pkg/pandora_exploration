@@ -36,34 +36,33 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_COST_FUNCTIONS_VISITED_COST_FUNCTION_H
-#define PANDORA_EXPLORATION_COST_FUNCTIONS_VISITED_COST_FUNCTION_H
+#ifndef PANDORA_EXPLORER_COST_FUNCTIONS_SIZE_COST_FUNCTION_H
+#define PANDORA_EXPLORER_COST_FUNCTIONS_SIZE_COST_FUNCTION_H
 
-#include <vector>
 #include <boost/foreach.hpp>
-#include <tf/tf.h>
-#include <angles/angles.h>
 
-#include "pandora_exploration/cost_functions/frontier_cost_function.h"
+#include "pandora_explorer/cost_functions/frontier_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
   /**
-    * @class VisitedCostFunction
+    * @class SizeCostFunction
     * @brief A class implementing a frontier cost function using the FrontierCostFunction
     * interface
     * 
+    * This cost function adds costs to the frontiers based on the frontier size.
+    * Frontiers bigger in size are added higher costs. Cost are normalized to a scale 
+    * between 0 and 1. 
     */
-  class VisitedCostFunction : public FrontierCostFunction
+  class SizeCostFunction : public FrontierCostFunction
   {
    public:
 
     /**
-      * @brief Constructor for the AlignmentCostFunction class
+      * @brief Explicit constructor for the SizeCostFunction class
       * @param scale The weight we set on the cost function
-      * @param selected_goals 
       */
-    VisitedCostFunction(double scale, const std::vector<geometry_msgs::PoseStamped>& selected_goals);
+    explicit SizeCostFunction(double scale);
 
     /**
       * @brief Takes a list of frontiers and adds a cost to each one of them
@@ -73,17 +72,14 @@ namespace pandora_exploration {
       * add any cost.
       */
     virtual void scoreFrontiers(const FrontierListPtr& frontier_list);
+    
 
     /**
-      * @brief Destructor for the VisitedCostFunction class.
+      * @brief Destructor for the SizeCostFunction class.
       */
-    ~VisitedCostFunction() {}
-
-   private:
-
-    const std::vector<geometry_msgs::PoseStamped>& selected_goals_;
+    ~SizeCostFunction() {}
   };
 
-} // namespace pandora_exploration
+}   // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_COST_FUNCTIONS_VISITED_COST_FUNCTION_H
+#endif  // PANDORA_EXPLORER_COST_FUNCTIONS_SIZE_COST_FUNCTION_H

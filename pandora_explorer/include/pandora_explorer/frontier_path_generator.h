@@ -36,42 +36,25 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_NAVFN_FRONTIER_PATH_GENERATOR_H
-#define PANDORA_EXPLORATION_NAVFN_FRONTIER_PATH_GENERATOR_H
+#ifndef PANDORA_EXPLORER_FRONTIER_PATH_GENERATOR_H
+#define PANDORA_EXPLORER_FRONTIER_PATH_GENERATOR_H
 
 #include <string>
-#include <ros/ros.h>
-#include <nav_msgs/GetPlan.h>
-#include <boost/foreach.hpp>
+#include <nav_msgs/Path.h>
 
-#include <costmap_2d/costmap_2d_ros.h>
-#include <nav_core/base_global_planner.h>
-#include <pluginlib/class_loader.h>
+#include "pandora_explorer/frontier.h"
 
-#include "pandora_exploration/frontier_path_generator.h"
-
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 /**
-  * @class NavfnFrontierPathGenerator
-  * @brief A class implementing a frontier path generator using the FrontierPathGenerator
-  * interface
-  * 
-  * This implementation uses a global planner to make a plan from starting pose to the 
-  * frontier. This plan is then stored to the path variable of the frontier.
+  * @class FrontierPathGenerator
+  * @brief Provides an interface for the frontier path generator used in frontier
+  * goal selector. Every frontier path generator implementation must adhere 
+  * to this interface. 
   */
-class NavfnFrontierPathGenerator : public FrontierPathGenerator {
+class FrontierPathGenerator {
  public:
-
-  /**
-    * @brief Constructor for the class NavfnFrontierPathGenerator
-    * @param name The name of the frontier path generator
-    * @param frontier_represantation Set the frontier representation, centroid, middle or initial
-    * @param costmap_ros A pointer to a ros costmap
-    */
-  NavfnFrontierPathGenerator(const std::string& name, const std::string& frontier_representation,
-                             const boost::shared_ptr<costmap_2d::Costmap2DROS>& costmap_ros);
-
+  
   /**
     * @brief Creates paths from start pose to a frontier, for all the frontiers we pass
     * @param start The start pose from where we create the path for each frontier
@@ -80,29 +63,37 @@ class NavfnFrontierPathGenerator : public FrontierPathGenerator {
     * inside frontier_list
     */
   virtual bool findPaths(const geometry_msgs::PoseStamped& start,
-                         const FrontierListPtr& frontier_list);
+                         const FrontierListPtr& frontier_list) = 0;
 
   /**
-    * @brief Destructor for the NavfnFrontierPathGenerator class
+    * @brief Destructor for the class FrontierPathGenerator
     */
-  ~NavfnFrontierPathGenerator()
+  virtual ~FrontierPathGenerator()
   {
   }
 
- private:
-  // used to get the name of the global planner
-  ros::NodeHandle pnh_;
+ protected:
+  
+ /**
+    * @brief Constructor for the class FrontierPathGenerator
+    * @param name The name of the frontier path generator
+    * @param frontier_represantation Set the frontier representation, centroid, middle or initial
+    */
+  FrontierPathGenerator(const std::string& name, const std::string& frontier_representation)
+    : name_(name), frontier_representation_(frontier_representation)
+  {
+  }
 
-  // Shared ptr that holds the global planner, needed to generate the paths
-  boost::shared_ptr<nav_core::BaseGlobalPlanner> planner_;
+ protected:
+  // name of the frontier path generator
+  std::string name_;
 
-  // The plugin loader for the global planner
-  pluginlib::ClassLoader<nav_core::BaseGlobalPlanner> planner_loader_;
-
-  // Shared ptr that holds the costmap
-  boost::shared_ptr<costmap_2d::Costmap2DROS> costmap_ros_;
+  // frontier representation, centroid, middle or initial
+  std::string frontier_representation_;
 };
 
-}  // namespace pandora_exploration
+typedef boost::shared_ptr<FrontierPathGenerator> FrontierPathGeneratorPtr;
 
-#endif  // PANDORA_EXPLORATION_NAVFN_FRONTIER_PATH_GENERATOR_H
+}  // namespace pandora_explorer
+
+#endif  // PANDORA_EXPLORER_FRONTIER_PATH_GENERATOR_H

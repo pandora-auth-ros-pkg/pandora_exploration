@@ -35,9 +35,9 @@
 * Author: Chris Zalidis <zalidis@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/exploration_controller.h"
+#include "pandora_explorer/exploration_controller.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 ExplorationController::ExplorationController()
   : private_nh_("~"),
@@ -82,12 +82,12 @@ ExplorationController::ExplorationController()
 }
 
 void ExplorationController::executeCb(
-    const pandora_navigation_msgs::DoExplorationGoalConstPtr& goal)
+    const pandora_exploration_msgs::DoExplorationGoalConstPtr& goal)
 {
   // wait for move_base to set-up
   if (!move_base_client_.waitForServer(ros::Duration(1.0)))
   {
-    do_exploration_server_.setAborted(pandora_navigation_msgs::DoExplorationResult(),
+    do_exploration_server_.setAborted(pandora_exploration_msgs::DoExplorationResult(),
                                       "Could not connect to move_base action");
     return;
   }
@@ -102,20 +102,20 @@ void ExplorationController::executeCb(
   while (ros::ok() && do_exploration_server_.isActive()) {
     // we reached maximum goal searches retries
     if (goal_searches_count_ >= max_goal_searches_) {
-      do_exploration_server_.setSucceeded(pandora_navigation_msgs::DoExplorationResult(),
+      do_exploration_server_.setSucceeded(pandora_exploration_msgs::DoExplorationResult(),
                                         "[explorer] Max retries reached, we could not find more goals - exploration completed");
       return;
     }
 
     if (abort_count_ >= max_abortions_) {
-      do_exploration_server_.setAborted(pandora_navigation_msgs::DoExplorationResult(),
+      do_exploration_server_.setAborted(pandora_exploration_msgs::DoExplorationResult(),
                                         "Robot refuses to move, aborting...");
       return;
     }
 
     bool success = false;
 
-    if (goal->exploration_type == pandora_navigation_msgs::DoExplorationGoal::TYPE_DEEP &&
+    if (goal->exploration_type == pandora_exploration_msgs::DoExplorationGoal::TYPE_DEEP &&
         coverage_goal_selector_) {
       success = coverage_goal_selector_->findNextGoal(&current_goal_);  // to current goal gemizetai me to stoxo pou tha vrei o goal selector
     } else {
@@ -219,4 +219,4 @@ bool ExplorationController::isTimeReached()
   return true;
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

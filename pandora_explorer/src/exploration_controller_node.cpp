@@ -35,13 +35,13 @@
 * Author: Chris Zalidis <zalidis@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/exploration_controller.h"
+#include "pandora_explorer/exploration_controller.h"
 
 int main(int argc, char* argv[])
 {
   ros::init(argc, argv, "explorer", ros::init_options::NoSigintHandler);
 
-  pandora_exploration::ExplorationController exploration_controller;
+  pandora_explorer::ExplorationController exploration_controller;
 
   ros::spin();
 

@@ -36,9 +36,9 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/cost_functions/alignment_cost_function.h"
+#include "pandora_explorer/cost_functions/alignment_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 AlignmentCostFunction::AlignmentCostFunction(double scale,
                                              const geometry_msgs::PoseStamped& robot_pose)
@@ -80,4 +80,4 @@ void AlignmentCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   }
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

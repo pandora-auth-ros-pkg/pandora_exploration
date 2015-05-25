@@ -36,9 +36,9 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/navfn_frontier_path_generator.h"
+#include "pandora_explorer/navfn_frontier_path_generator.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 NavfnFrontierPathGenerator::NavfnFrontierPathGenerator(
     const std::string& name, const std::string& frontier_representation,
@@ -109,4 +109,4 @@ bool NavfnFrontierPathGenerator::findPaths(const geometry_msgs::PoseStamped& sta
   return true;
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

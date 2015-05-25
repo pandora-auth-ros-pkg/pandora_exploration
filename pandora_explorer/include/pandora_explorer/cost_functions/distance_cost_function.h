@@ -36,64 +36,48 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_FRONTIER_PATH_GENERATOR_H
-#define PANDORA_EXPLORATION_FRONTIER_PATH_GENERATOR_H
+#ifndef PANDORA_EXPLORER_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H
+#define PANDORA_EXPLORER_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H
 
-#include <string>
-#include <nav_msgs/Path.h>
+#include <boost/foreach.hpp>
 
-#include "pandora_exploration/frontier.h"
+#include "pandora_explorer/cost_functions/frontier_cost_function.h"
 
-namespace pandora_exploration {
-
-/**
-  * @class FrontierPathGenerator
-  * @brief Provides an interface for the frontier path generator used in frontier
-  * goal selector. Every frontier path generator implementation must adhere 
-  * to this interface. 
-  */
-class FrontierPathGenerator {
- public:
-  
-  /**
-    * @brief Creates paths from start pose to a frontier, for all the frontiers we pass
-    * @param start The start pose from where we create the path for each frontier
-    * @param frontier_list A list with all the frontiers we want to generate paths for 
-    * @return True when it has finished creating the paths for all the frontiers
-    * inside frontier_list
-    */
-  virtual bool findPaths(const geometry_msgs::PoseStamped& start,
-                         const FrontierListPtr& frontier_list) = 0;
+namespace pandora_explorer {
 
   /**
-    * @brief Destructor for the class FrontierPathGenerator
+    * @class DistanceCostFunction
+    * @brief A class implementing a frontier cost function using the FrontierCostFunction
+    * interface
+    * 
+    * This cost function add costs to the frontiers based on the straightness and length
+    * of the path. Cost are normalized to a scale between 0 and 1. 
     */
-  virtual ~FrontierPathGenerator()
+  class DistanceCostFunction : public FrontierCostFunction
   {
-  }
+   public:
 
- protected:
-  
- /**
-    * @brief Constructor for the class FrontierPathGenerator
-    * @param name The name of the frontier path generator
-    * @param frontier_represantation Set the frontier representation, centroid, middle or initial
-    */
-  FrontierPathGenerator(const std::string& name, const std::string& frontier_representation)
-    : name_(name), frontier_representation_(frontier_representation)
-  {
-  }
+    /**
+      * @brief Explicit constructor for the DistanceCostFunction class
+      * @param scale The weight we set on the cost function
+      */
+    explicit DistanceCostFunction(double scale);
 
- protected:
-  // name of the frontier path generator
-  std::string name_;
+    /**
+      * @brief Takes a list of frontiers and adds a cost to each one of them
+      * @param frontier_list A pointer to a list of frontiers that are to be evaluated.
+      * 
+      * If a frontier has already assigned a negative cost then scoreFrontiers doesn't 
+      * add any cost. Also if there is no path to a frontier it assigns a cost of -1.
+      */
+    virtual void scoreFrontiers(const FrontierListPtr& frontier_list);
 
-  // frontier representation, centroid, middle or initial
-  std::string frontier_representation_;
-};
+    /**
+      * @brief Destructor for the DistanceCostFunction class.
+      */
+    ~DistanceCostFunction() {}
+  };
 
-typedef boost::shared_ptr<FrontierPathGenerator> FrontierPathGeneratorPtr;
+}  // namespace pandora_explorer
 
-}  // namespace pandora_exploration
-
-#endif  // PANDORA_EXPLORATION_FRONTIER_PATH_GENERATOR_H
+#endif  // PANDORA_EXPLORER_COST_FUNCTIONS_DISTANCE_COST_FUNCTION_H

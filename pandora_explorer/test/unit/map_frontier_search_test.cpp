@@ -35,11 +35,11 @@
 * Author: Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 #include <costmap_2d/costmap_2d.h>
-#include "pandora_exploration/map_frontier_search.h"
+#include "pandora_explorer/map_frontier_search.h"
 #include <iostream>
 #include <gtest/gtest.h>
 
-namespace pandora_exploration
+namespace pandora_explorer
 {
   
   class MapFrontierSearchTest : public ::testing::Test
@@ -519,4 +519,4 @@ namespace pandora_exploration
 
     EXPECT_EQ(7, yolo.size);
   } */
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

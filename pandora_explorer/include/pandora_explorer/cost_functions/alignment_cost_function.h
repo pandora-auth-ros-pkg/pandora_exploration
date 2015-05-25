@@ -36,16 +36,16 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H
-#define PANDORA_EXPLORATION_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H
+#ifndef PANDORA_EXPLORER_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H
+#define PANDORA_EXPLORER_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H
 
 #include <boost/foreach.hpp>
 #include <tf/tf.h>
 #include <angles/angles.h>
 
-#include "pandora_exploration/cost_functions/frontier_cost_function.h"
+#include "pandora_explorer/cost_functions/frontier_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
   /**
     * @class AlignmentCostFunction
@@ -87,6 +87,6 @@ namespace pandora_exploration {
     const geometry_msgs::PoseStamped& robot_pose_;
   };
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H
+#endif  // PANDORA_EXPLORER_COST_FUNCTIONS_ALIGNMENT_COST_FUNCTION_H

@@ -38,9 +38,9 @@
 // for the usage of M_E
 #include <cmath>
 
-#include "pandora_exploration/cost_functions/distance_cost_function.h"
+#include "pandora_explorer/cost_functions/distance_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 DistanceCostFunction::DistanceCostFunction(double scale) : FrontierCostFunction(scale)
 {
@@ -83,4 +83,4 @@ void DistanceCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   }
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

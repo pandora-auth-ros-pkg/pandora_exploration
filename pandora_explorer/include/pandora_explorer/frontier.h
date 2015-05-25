@@ -1,12 +1,12 @@
-#ifndef PANDORA_EXPLORATION_FRONTIER_H
-#define PANDORA_EXPLORATION_FRONTIER_H
+#ifndef PANDORA_EXPLORER_FRONTIER_H
+#define PANDORA_EXPLORER_FRONTIER_H
 
 #include <boost/shared_ptr.hpp>
 #include <geometry_msgs/Point.h>
 #include <nav_msgs/Path.h>
 #include <std_msgs/Header.h>
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
   /**
     * @class Frontier
@@ -58,6 +58,6 @@ namespace pandora_exploration {
   typedef std::list<Frontier> FrontierList;
   typedef boost::shared_ptr<FrontierList> FrontierListPtr;
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_FRONTIER_H
+#endif  // PANDORA_EXPLORER_FRONTIER_H

@@ -36,9 +36,9 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/frontier_goal_selector.h"
+#include "pandora_explorer/frontier_goal_selector.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 FrontierGoalSelector::FrontierGoalSelector(const std::string& name)
   : GoalSelector(name), tf_listener_(ros::Duration(10.0))
@@ -340,4 +340,4 @@ void FrontierGoalSelector::visualizeFrontiers()
   frontier_marker_pub_.publish(markers);
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

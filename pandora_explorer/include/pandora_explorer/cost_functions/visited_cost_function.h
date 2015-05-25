@@ -36,56 +36,54 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_FRONTIER_SEARCH_H
-#define PANDORA_EXPLORATION_FRONTIER_SEARCH_H
+#ifndef PANDORA_EXPLORER_COST_FUNCTIONS_VISITED_COST_FUNCTION_H
+#define PANDORA_EXPLORER_COST_FUNCTIONS_VISITED_COST_FUNCTION_H
 
-#include <string>
-#include <list>
-#include <boost/shared_ptr.hpp>
+#include <vector>
+#include <boost/foreach.hpp>
+#include <tf/tf.h>
+#include <angles/angles.h>
 
-#include <geometry_msgs/Point.h>
-#include <costmap_2d/costmap_2d.h>
+#include "pandora_explorer/cost_functions/frontier_cost_function.h"
 
-#include "pandora_exploration/frontier.h"
-
-namespace pandora_exploration {
-
-/**
-  * @class FrontierSearch
-  * @brief Provides an interface for the frontier searcher used in frontier goal selector.
-  * Every frontier searcher implementation must adhere to this interface. 
-  */
-class FrontierSearch {
- public:
-  virtual std::list<Frontier> searchFrom(geometry_msgs::Point position) = 0;
+namespace pandora_explorer {
 
   /**
-    * @brief Destructor for the class FrontierSearch
+    * @class VisitedCostFunction
+    * @brief A class implementing a frontier cost function using the FrontierCostFunction
+    * interface
+    * 
     */
-  virtual ~FrontierSearch()
+  class VisitedCostFunction : public FrontierCostFunction
   {
-  }
+   public:
 
- protected:
-  /**
-    * @brief Constructor for the class FrontierSearch
-    * @param costmap A ptr to a costmap
-    * @param costmap_frame The frame of the costmap
-    */
-  FrontierSearch(const boost::shared_ptr<costmap_2d::Costmap2D>& costmap, std::string costmap_frame)
-    : costmap_(costmap), costmap_frame_(costmap_frame)
-  {
-  }
+    /**
+      * @brief Constructor for the AlignmentCostFunction class
+      * @param scale The weight we set on the cost function
+      * @param selected_goals 
+      */
+    VisitedCostFunction(double scale, const std::vector<geometry_msgs::PoseStamped>& selected_goals);
 
- protected:
-  
-  // shared ptr that holds the costmap
-  boost::shared_ptr<costmap_2d::Costmap2D> costmap_;
-  std::string costmap_frame_;
-};
+    /**
+      * @brief Takes a list of frontiers and adds a cost to each one of them
+      * @param frontier_list A pointer to a list of frontiers that are to be evaluated.
+      * 
+      * If a frontier has already assigned a negative cost then scoreFrontiers doesn't 
+      * add any cost.
+      */
+    virtual void scoreFrontiers(const FrontierListPtr& frontier_list);
 
-typedef boost::shared_ptr<FrontierSearch> FrontierSearchPtr;
+    /**
+      * @brief Destructor for the VisitedCostFunction class.
+      */
+    ~VisitedCostFunction() {}
 
-}  // namespace pandora_exploration
+   private:
 
-#endif  // PANDORA_EXPLORATION_FRONTIER_SEARCH_H
+    const std::vector<geometry_msgs::PoseStamped>& selected_goals_;
+  };
+
+} // namespace pandora_explorer
+
+#endif  // PANDORA_EXPLORER_COST_FUNCTIONS_VISITED_COST_FUNCTION_H

@@ -36,17 +36,17 @@
           Dimitrios Kirtsios <dimkirts@gmail.com>
 *********************************************************************/
 
-#ifndef PANDORA_EXPLORATION_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H
-#define PANDORA_EXPLORATION_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H
+#ifndef PANDORA_EXPLORER_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H
+#define PANDORA_EXPLORER_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H
 
 #include <string>
 #include <ros/ros.h>
 #include <nav_msgs/GetPlan.h>
 #include <boost/foreach.hpp>
 
-#include "pandora_exploration/frontier_path_generator.h"
+#include "pandora_explorer/frontier_path_generator.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 /**
   * @class NavfnServiceFrontierPathGenerator
@@ -104,6 +104,6 @@ class NavfnServiceFrontierPathGenerator : public FrontierPathGenerator {
   ros::ServiceClient path_client_;
 };
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer
 
-#endif  // PANDORA_EXPLORATION_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H
+#endif  // PANDORA_EXPLORER_NAVFN_SERVICE_FRONTIER_PATH_GENERATOR_H

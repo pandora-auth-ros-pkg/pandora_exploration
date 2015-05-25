@@ -1,10 +1,10 @@
 #include <costmap_2d/cost_values.h>
 #include <boost/foreach.hpp>
 
-#include "pandora_exploration/costmap_tools.h"
-#include "pandora_exploration/map_frontier_search.h"
+#include "pandora_explorer/costmap_tools.h"
+#include "pandora_explorer/map_frontier_search.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 using costmap_2d::LETHAL_OBSTACLE;
 using costmap_2d::NO_INFORMATION;
@@ -177,4 +177,4 @@ bool MapFrontierSearch::isNewFrontierCell(unsigned int idx, const std::vector<bo
   return false;
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

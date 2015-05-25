@@ -35,9 +35,9 @@
 * Author: Chris Zalidis <zalidis@gmail.com>
 *********************************************************************/
 
-#include "pandora_exploration/cost_functions/visited_cost_function.h"
+#include "pandora_explorer/cost_functions/visited_cost_function.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 VisitedCostFunction::VisitedCostFunction(
     double scale, const std::vector<geometry_msgs::PoseStamped>& selected_goals)
@@ -82,4 +82,4 @@ void VisitedCostFunction::scoreFrontiers(const FrontierListPtr& frontier_list)
   }
 }
 
-}  // namespace pandora_exploration
+}  // namespace pandora_explorer

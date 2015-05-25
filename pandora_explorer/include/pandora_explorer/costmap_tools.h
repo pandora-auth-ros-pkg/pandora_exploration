@@ -1,5 +1,5 @@
-#ifndef PANDORA_EXPLORATION_COSTMAP_TOOLS_H
-#define PANDORA_EXPLORATION_COSTMAP_TOOLS_H
+#ifndef PANDORA_EXPLORER_COSTMAP_TOOLS_H
+#define PANDORA_EXPLORER_COSTMAP_TOOLS_H
 
 #include <geometry_msgs/PolygonStamped.h>
 #include <geometry_msgs/PointStamped.h>
@@ -7,7 +7,7 @@
 #include <boost/foreach.hpp>
 #include <ros/ros.h>
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 /**
  * @brief Determine 4-connected neighbourhood of an input cell, checking for map edges
@@ -126,5 +126,5 @@ bool nearestCell(unsigned int& result, unsigned int start, unsigned char val,
   return false;
 }
 
-}  // namespace pandora_exploration
-#endif  // PANDORA_EXPLORATION_COSTMAP_TOOLS_H
+}  // namespace pandora_explorer
+#endif  // PANDORA_EXPLORER_COSTMAP_TOOLS_H

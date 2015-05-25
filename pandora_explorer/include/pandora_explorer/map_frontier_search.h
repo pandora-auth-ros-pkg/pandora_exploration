@@ -1,9 +1,9 @@
-#ifndef PANDORA_EXPLORATION_MAP_FRONTIER_SEARCH_H
-#define PANDORA_EXPLORATION_MAP_FRONTIER_SEARCH_H
+#ifndef PANDORA_EXPLORER_MAP_FRONTIER_SEARCH_H
+#define PANDORA_EXPLORER_MAP_FRONTIER_SEARCH_H
 
-#include "pandora_exploration/frontier_search.h"
+#include "pandora_explorer/frontier_search.h"
 
-namespace pandora_exploration {
+namespace pandora_explorer {
 
 /**
  * @class MapFrontierSearch
@@ -64,5 +64,5 @@ class MapFrontierSearch : public FrontierSearch {
     friend class MapFrontierSearchTest;
 };
 
-}  // namespace pandora_exploration
-#endif  // PANDORA_EXPLORATION_MAP_FRONTIER_SEARCH_H
+}  // namespace pandora_explorer
+#endif  // PANDORA_EXPLORER_MAP_FRONTIER_SEARCH_H
