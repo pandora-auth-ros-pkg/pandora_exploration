@@ -53,13 +53,13 @@
 
 #include "alert_handler/utils.h"
 
-namespace pandora_data_fusion
+namespace pandora_exploration
 {
   namespace pandora_sensor_coverage
   {
 
     //!< Type Definitions
-    using ::pandora_data_fusion::pandora_alert_handler::Utils;
+    using ::pandora_exploration::pandora_alert_handler::Utils;
     typedef boost::shared_ptr<ros::NodeHandle> NodeHandlePtr;
 
     /**
@@ -205,7 +205,7 @@ namespace pandora_data_fusion
     };
 
 }  // namespace pandora_sensor_coverage
-}  // namespace pandora_data_fusion
+}  // namespace pandora_exploration
 
 #endif  // SENSOR_COVERAGE_COVERAGE_CHECKER_H
 

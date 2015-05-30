@@ -44,7 +44,7 @@
 
 #include "sensor_coverage/coverage_checker.h"
 
-namespace pandora_data_fusion
+namespace pandora_exploration
 {
   namespace pandora_sensor_coverage
   {
@@ -147,7 +147,7 @@ namespace pandora_data_fusion
       };
 
 }  // namespace pandora_sensor_coverage
-}  // namespace pandora_data_fusion
+}  // namespace pandora_exploration
 
 #include "sensor_coverage/space_checker.hxx"
 

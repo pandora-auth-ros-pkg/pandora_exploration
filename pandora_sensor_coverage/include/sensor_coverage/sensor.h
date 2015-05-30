@@ -51,7 +51,7 @@
 #include "sensor_coverage/space_checker.h"
 #include "sensor_coverage/surface_checker.h"
 
-namespace pandora_data_fusion
+namespace pandora_exploration
 {
   namespace pandora_sensor_coverage
   {
@@ -206,6 +206,6 @@ namespace pandora_data_fusion
     typedef boost::shared_ptr<Sensor> SensorPtr;
 
 }  // namespace pandora_sensor_coverage
-}  // namespace pandora_data_fusion
+}  // namespace pandora_exploration
 
 #endif  // SENSOR_COVERAGE_SENSOR_H
