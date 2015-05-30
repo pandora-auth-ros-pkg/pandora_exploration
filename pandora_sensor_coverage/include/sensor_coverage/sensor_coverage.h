@@ -59,7 +59,7 @@
 
 #include "sensor_coverage/sensor.h"
 
-namespace pandora_data_fusion
+namespace pandora_exploration
 {
   namespace pandora_sensor_coverage
   {
@@ -142,6 +142,6 @@ namespace pandora_data_fusion
     };
 
 }  // namespace pandora_sensor_coverage
-}  // namespace pandora_data_fusion
+}  // namespace pandora_exploration
 
 #endif  // SENSOR_COVERAGE_SENSOR_COVERAGE_H
