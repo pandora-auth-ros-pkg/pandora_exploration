@@ -218,6 +218,7 @@ namespace pandora_exploration
           else if (node->getOccupancy() <= coverageMap3d_->getOccupancyThres())
           {
             occupied = false;
+            """ why set coversSpace to true?? """
             coversSpace = true;
             startZ = coverageMap3d_->keyToCoord(*it).z();
           }
