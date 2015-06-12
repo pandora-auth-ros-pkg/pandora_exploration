@@ -17,6 +17,7 @@
   <build_depend>roslint</build_depend>
 
   <depend>roscpp</depend>
+  <depend>dynamic_reconfigure</depend>
   <depend>visualization_msgs</depend>
   <depend>pandora_exploration_msgs</depend>
   <depend>actionlib</depend>

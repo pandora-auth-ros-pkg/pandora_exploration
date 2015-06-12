@@ -4,6 +4,7 @@ project(pandora_explorer)
 find_package(catkin REQUIRED
     COMPONENTS
       roscpp
+      dynamic_reconfigure
       visualization_msgs
       actionlib
       pandora_exploration_msgs
@@ -18,11 +19,16 @@ find_package(catkin REQUIRED
       roslint
 )
 
+# dynamic reconfigure
+generate_dynamic_reconfigure_options(
+    config/FrontierCostFunctions.cfg
+)
 
 catkin_package(
 #  DEPENDS
   CATKIN_DEPENDS
     roscpp
+    dynamic_reconfigure
     visualization_msgs
     actionlib
     pandora_exploration_msgs
@@ -74,6 +80,8 @@ add_executable(exploration_controller
   src/exploration_controller.cpp
   src/exploration_controller_node.cpp)
 add_dependencies(exploration_controller ${catkin_EXPORTED_TARGETS})
+add_dependencies(exploration_controller ${PROJECT_NAME}_gencfg)
+
 target_link_libraries(exploration_controller
     ${catkin_LIBRARIES}
     frontier_goal_selector

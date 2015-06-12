@@ -109,10 +109,58 @@ FrontierGoalSelector::FrontierGoalSelector(const std::string& name)
 
   // set-up frontier list
   frontier_list_.reset(new FrontierList);
+
+  dsrv_ = new dynamic_reconfigure::Server<pandora_explorer::FrontierCostFunctionsConfig>(ros::NodeHandle("~" + name_));
+  dynamic_reconfigure::Server<pandora_explorer::FrontierCostFunctionsConfig>::CallbackType cb = boost::bind(
+    &FrontierGoalSelector::reconfigureCB, this, _1, _2);
+  dsrv_->setCallback(cb);
+}
+
+void FrontierGoalSelector::reconfigureCB(pandora_explorer::FrontierCostFunctionsConfig &config, uint32_t level)
+{
+  boost::mutex::scoped_lock l(configuration_mutex_);
+  if(config.restore_defaults)
+  {
+    if(name_ == "coverage")
+    {
+      config.size_scale = 0.35;
+      config.dist_scale = 0.2;
+      config.alignment_scale = 0.15;
+      config.visited_scale = 0.3;
+    }
+    
+    config = default_config_;
+    //if someone sets restore defaults on the parameter server, prevent looping
+    config.restore_defaults = false;
+  }
+
+  double size_scale_cfg = config.size_scale;
+  double dist_scale_cfg = config.dist_scale;
+  double alignment_scale_cfg = config.alignment_scale;
+  double visited_scale_cfg = config.visited_scale;
+
+
+  frontier_cost_function_vec_.clear();
+  // TODO(dimkirt) Check for issues with pointers
+  // set-up cost functions, using the scales previously loaded
+  FrontierCostFunctionPtr size_cost_function(new SizeCostFunction(size_scale_cfg));
+  frontier_cost_function_vec_.push_back(size_cost_function);
+
+  FrontierCostFunctionPtr distance_cost_function(new DistanceCostFunction(dist_scale_cfg));
+  frontier_cost_function_vec_.push_back(distance_cost_function);
+
+  FrontierCostFunctionPtr alignment_cost_function(
+      new AlignmentCostFunction(alignment_scale_cfg, current_robot_pose_));
+  frontier_cost_function_vec_.push_back(alignment_cost_function);
+
+  FrontierCostFunctionPtr visited_cost_function(
+      new VisitedCostFunction(visited_scale_cfg, selected_goals_));
+  frontier_cost_function_vec_.push_back(visited_cost_function);
 }
 
 bool FrontierGoalSelector::findNextGoal(geometry_msgs::PoseStamped* goal)
 {
+  boost::mutex::scoped_lock l(configuration_mutex_);
   // clear previous frontiers
   frontier_list_->clear();
 

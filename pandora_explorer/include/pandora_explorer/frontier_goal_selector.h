@@ -57,6 +57,9 @@
 #include "pandora_explorer/cost_functions/alignment_cost_function.h"
 #include "pandora_explorer/cost_functions/visited_cost_function.h"
 
+#include <dynamic_reconfigure/server.h>
+#include "pandora_explorer/FrontierCostFunctionsConfig.h"
+
 namespace pandora_explorer {
 
 /**
@@ -154,6 +157,14 @@ class FrontierGoalSelector : public GoalSelector {
   bool visualize_paths_;
 
   Frontier current_frontier_;
+
+  dynamic_reconfigure::Server<pandora_explorer::FrontierCostFunctionsConfig> *dsrv_;
+      
+  void reconfigureCB(pandora_explorer::FrontierCostFunctionsConfig &config, uint32_t level);
+
+  pandora_explorer::FrontierCostFunctionsConfig default_config_;
+  boost::mutex configuration_mutex_;
+
 };
 
 }  // namespace pandora_explorer
