@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * Authors: 
+ * Authors:
  *   Tsirigotis Christos <tsirif@gmail.com>
  *********************************************************************/
 
@@ -50,9 +50,13 @@ namespace pandora_exploration
     {
       //  initialize NodeHandle and Map.
       nh_.reset( new ros::NodeHandle(ns) );
-      globalMap3d_.reset();
-      globalMap2d_.reset( new nav_msgs::OccupancyGrid );
-      Sensor::setMap2d(globalMap2d_);
+
+      globalMap3dPtrPtr_.reset( new octomap::OcTree* );
+      *globalMap3dPtrPtr_ = NULL;
+      Sensor::setMap3d(globalMap3dPtrPtr_);
+
+      globalMap2dPtr_.reset( new nav_msgs::OccupancyGrid );
+      Sensor::setMap2d(globalMap2dPtr_);
 
       std::string param;
       double paramD = 0;
@@ -194,12 +198,10 @@ namespace pandora_exploration
       octomap::AbstractOcTree* map = octomap_msgs::fullMsgToMap(msg);
       if (map)
       {
-        globalMap3d_.reset(dynamic_cast<octomap::OcTree*>(map));
-        if (globalMap3d_.get())
-        {
-          Sensor::setMap3d(globalMap3d_);
-        }
-        else
+        if (*globalMap3dPtrPtr_)
+          delete *globalMap3dPtrPtr_;
+        *globalMap3dPtrPtr_ = dynamic_cast<octomap::OcTree*>(map);
+        if (*globalMap3dPtrPtr_ == NULL)
         {
           ROS_WARN_NAMED("SENSOR_COVERAGE",
               "[SENSOR_COVERAGE_MAP3D_UPDATE %d] AbstractOcTree sent is not OcTree",
@@ -216,8 +218,8 @@ namespace pandora_exploration
 
     void SensorCoverage::map2dUpdate(const nav_msgs::OccupancyGridConstPtr& msg)
     {
-      *globalMap2d_ = *msg;
-      globalMap2d_->info.origin.orientation.w = 1;
+      *globalMap2dPtr_ = *msg;
+      // globalMap2dPtr_->info.origin.orientation.w = 1;
     }
 
     bool SensorCoverage::flushCoverage(

@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * Authors: 
+ * Authors:
  *   Tsirigotis Christos <tsirif@gmail.com>
  *********************************************************************/
 
@@ -59,7 +59,7 @@ namespace pandora_exploration
   {
 
     //!< Type Definitions
-    using ::pandora_exploration::pandora_alert_handler::Utils;
+    using ::pandora_data_fusion::pandora_alert_handler::Utils;
     typedef boost::shared_ptr<ros::NodeHandle> NodeHandlePtr;
 
     /**
@@ -98,24 +98,24 @@ namespace pandora_exploration
         virtual void resetCoverage() {}
 
         /**
-         * @brief Setter for static variable map2D_
-         * @param map2D [nav_msgs::OccupancyGridPtr const&] map
+         * @brief Setter for static variable map2dPtr_
+         * @param map2dPtr [nav_msgs::OccupancyGridPtr const&] map
          * @return void
          */
-        static void setMap2d(const nav_msgs::OccupancyGridPtr& map2d)
+        static void setMap2d(const nav_msgs::OccupancyGridPtr& map2dPtr)
         {
-          map2d_ = map2d;
+          map2dPtr_ = map2dPtr;
         }
 
         /**
-         * @brief Setter of static variable 3dMap_
-         * @param map3d [boost::shared_ptr<octomap::OcTree> const&] map
+         * @brief Setter for static variable map3dPtrPtr_
+         * @param map3dPtrPtr [boost::shared_ptr<octomap::OcTree*> const&] map
          * @note Will reset to null, deleting reference, if a null ptr is passed.
          * @return void
          */
-        static void setMap3d(const boost::shared_ptr<octomap::OcTree>& map3d)
+        static void setMap3d(const boost::shared_ptr<octomap::OcTree*>& map3dPtrPtr)
         {
-          map3d_ = map3d;
+          map3dPtrPtr_ = map3dPtrPtr;
         }
 
         /**
@@ -184,8 +184,8 @@ namespace pandora_exploration
         octomap::point3d robotPosition_;
 
         //!< Global 3d and 2d maps as they are sent by SLAM
-        static boost::shared_ptr<octomap::OcTree> map3d_;
-        static nav_msgs::OccupancyGridPtr map2d_;
+        static boost::shared_ptr<octomap::OcTree*> map3dPtrPtr_;
+        static nav_msgs::OccupancyGridPtr map2dPtr_;
 
         /*  Parameters  */
         //!< sensor's range
@@ -208,4 +208,3 @@ namespace pandora_exploration
 }  // namespace pandora_exploration
 
 #endif  // SENSOR_COVERAGE_COVERAGE_CHECKER_H
-

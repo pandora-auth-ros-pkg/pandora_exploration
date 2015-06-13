@@ -32,7 +32,7 @@
  *  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  *
- * Authors: 
+ * Authors:
  *   Tsirigotis Christos <tsirif@gmail.com>
  *********************************************************************/
 
@@ -49,8 +49,9 @@ namespace pandora_exploration
       : nh_(nh), frameName_(frameName)
     {}
 
-    boost::shared_ptr<octomap::OcTree> CoverageChecker::map3d_;
-    nav_msgs::OccupancyGridPtr CoverageChecker::map2d_;
+    boost::shared_ptr<octomap::OcTree*> CoverageChecker::map3dPtrPtr_ = boost::
+      shared_ptr<octomap::OcTree*>();
+    nav_msgs::OccupancyGridPtr CoverageChecker::map2dPtr_ = nav_msgs::OccupancyGridPtr();
     double CoverageChecker::OCCUPIED_CELL_THRES = 0.5;
     double CoverageChecker::MAX_HEIGHT = 0;
     double CoverageChecker::FOOTPRINT_WIDTH = 0;
