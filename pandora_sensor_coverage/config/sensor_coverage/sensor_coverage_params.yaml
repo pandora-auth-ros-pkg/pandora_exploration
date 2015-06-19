@@ -20,7 +20,7 @@ frames_to_track: [kinect_rgb_frame]
 
 # kinect_rgb_frame
 kinect_rgb_frame:
-  produces_surface_coverage: false 
+  produces_surface_coverage: false
   published_topic_names:
     space_coverage: kinect_space
     area_coverage: area_covered

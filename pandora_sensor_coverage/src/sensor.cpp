@@ -118,9 +118,9 @@ namespace pandora_exploration
         return;
       else if (!initialized_)
       {
-        surfaceChecker_->resetCoverage();
         if (surfaceCoverage_)
         {
+          surfaceChecker_->resetCoverage();
           boost::dynamic_pointer_cast< SpaceChecker<octomap::ColorOcTree> >(
               spaceChecker_)->setCoverageMap3d(surfaceChecker_->getCoverageMap3d());
         }
@@ -181,6 +181,5 @@ namespace pandora_exploration
         ROS_BREAK();
       }
     }
-
-}  // namespace pandora_sensor_coverage
-}  // namespace pandora_exploration
+}
+}

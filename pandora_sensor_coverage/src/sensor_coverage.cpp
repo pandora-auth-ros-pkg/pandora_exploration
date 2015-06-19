@@ -201,6 +201,7 @@ namespace pandora_exploration
         if (*globalMap3dPtrPtr_)
           delete *globalMap3dPtrPtr_;
         *globalMap3dPtrPtr_ = dynamic_cast<octomap::OcTree*>(map);
+        
         if (*globalMap3dPtrPtr_ == NULL)
         {
           ROS_WARN_NAMED("SENSOR_COVERAGE",
@@ -219,7 +220,7 @@ namespace pandora_exploration
     void SensorCoverage::map2dUpdate(const nav_msgs::OccupancyGridConstPtr& msg)
     {
       *globalMap2dPtr_ = *msg;
-      // globalMap2dPtr_->info.origin.orientation.w = 1;
+      globalMap2dPtr_->info.origin.orientation.w = 1;
     }
 
     bool SensorCoverage::flushCoverage(

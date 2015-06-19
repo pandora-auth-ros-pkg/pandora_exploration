@@ -303,10 +303,18 @@ namespace pandora_exploration
               y = jj * oldMetaData.resolution;
               xn = cos(yawDiff) * x - sin(yawDiff) * y - xDiff;
               yn = sin(yawDiff) * x + cos(yawDiff) * y - yDiff;
-              int coords = static_cast<int>(round((xn + yn * coveredSpace_->info.width)
-                    / coveredSpace_->info.resolution));
-              coveredSpace_->data[coords] = oldCoverage[ii + jj * oldMetaData.width];
-              coverageDilation(2, coords);
+              int coords = static_cast<int>(round(xn / coveredSpace_->info.resolution) +
+                   round(yn * coveredSpace_->info.width / coveredSpace_->info.resolution));
+              if ((coords > newSize) || (coords < 0))
+              {
+                ROS_WARN("Error resizing to: %d\nCoords Xn: %f, Yn: %f\n", newSize, xn, yn);
+              }
+              else
+              {
+                uint8_t temp = oldCoverage[ii + jj * oldMetaData.width];
+                coveredSpace_->data[coords] = temp;
+                coverageDilation(2, coords);
+              }
             }
           }
         }
