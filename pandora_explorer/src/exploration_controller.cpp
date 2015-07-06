@@ -57,6 +57,7 @@ ExplorationController::ExplorationController()
   private_nh_.param<bool>("use_coverage", use_coverage, false);
 
   // if use_coverage is enabled we create a frontier goal selector with the name coverage
+  // WARNING: If the coverage topic is not set correctly the explorer is not initialized
   if (use_coverage)
     coverage_goal_selector_.reset(new FrontierGoalSelector("coverage"));
 

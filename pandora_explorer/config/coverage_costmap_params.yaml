@@ -24,7 +24,7 @@ static:
   lethal_cost_threshold: 61
 
 coverage:
-  map_topic: /data_fusion/sensor_coverage/kinect_space
+  map_topic: /exploration/sensor_coverage/kinect_space
   subscribe_to_updates: false
 
 inflation:
