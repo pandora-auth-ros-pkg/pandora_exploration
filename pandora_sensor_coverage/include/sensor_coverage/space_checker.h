@@ -64,6 +64,9 @@ namespace pandora_exploration
            */
           SpaceChecker(const NodeHandlePtr& nh, const std::string& frameName);
 
+          nav_msgs::OccupancyGridPtr
+          getSpaceCoverage() const;
+
           /**
            * @override
            * @brief function that finds coverage, triggered when updating it

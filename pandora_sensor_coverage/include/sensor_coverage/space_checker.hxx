@@ -87,6 +87,14 @@ namespace pandora_exploration
     }
 
     template <class TreeType>
+    nav_msgs::OccupancyGridPtr
+    SpaceChecker<TreeType>::
+    getSpaceCoverage() const
+    {
+      return coveredSpace_;
+    }
+
+    template <class TreeType>
     void SpaceChecker<TreeType>::findCoverage(
         const tf::StampedTransform& sensorTransform,
         const tf::StampedTransform& baseTransform)
