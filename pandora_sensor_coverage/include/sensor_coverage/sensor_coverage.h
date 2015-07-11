@@ -77,6 +77,10 @@ namespace pandora_exploration
          */
         explicit SensorCoverage(const std::string& ns);
 
+        void
+        fuseCoverage(const ros::TimerEvent& event);
+
+      protected:
         /**
          * @override
          * @brief Callback for every state change that occurs in state server.
@@ -122,6 +126,8 @@ namespace pandora_exploration
       private:
         //!< This node's NodeHandle.
         NodeHandlePtr nh_;
+
+        ros::Timer coverageFuser_;
 
         //!< subscriber that fetches 3d map.
         ros::Subscriber map3dSubscriber_;

@@ -176,7 +176,16 @@ namespace pandora_exploration
                 param)));
       }
 
+      coverageUpdater_ = nh_->createTimer(ros::Duration(0.1),
+          &SensorCoverage::fuseCoverage, this);
+
       clientInitialize();
+    }
+
+    void
+    SensorCoverage::
+    fuseCoverage(const ros::TimerEvent& event)
+    {
     }
 
     void SensorCoverage::startTransition(int newState)
