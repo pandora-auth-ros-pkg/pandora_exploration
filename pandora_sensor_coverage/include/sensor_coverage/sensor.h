@@ -79,6 +79,9 @@ namespace pandora_exploration
         Sensor(const NodeHandlePtr& nh,
             const std::string& frameName, const std::string& mapOrigin);
 
+        nav_msgs::OccupancyGridPtr
+        getCoverage() const;
+
         /**
          * @brief notifies state change
          * @param newState [int] the state to which sensor is transitioning

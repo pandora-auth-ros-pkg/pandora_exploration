@@ -103,6 +103,13 @@ namespace pandora_exploration
       }
     }
 
+    nav_msgs::OccupancyGridPtr
+    Sensor::
+    getCoverage() const
+    {
+      return spaceChecker_->getSpaceCoverage();
+    }
+
     void Sensor::flushCoverage()
     {
       spaceChecker_->resetCoverage();
