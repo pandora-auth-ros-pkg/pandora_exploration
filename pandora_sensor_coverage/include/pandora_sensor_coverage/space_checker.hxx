@@ -179,7 +179,7 @@ namespace pandora_exploration
       // Calculate total area explored according to this sensor.
       totalAreaCovered_ = cellsCovered * resolution * resolution;
       ROS_INFO_THROTTLE(20,
-          "[SENSOR_COVERAGE_SPACE_CHECKER %d] Total area covered is %f m^2.",
+          "[PANDORA_SENSOR_COVERAGE_SPACE_CHECKER %d] Total area covered is %f m^2.",
           __LINE__, totalAreaCovered_);
 
       // Robot is standing in fully covered space (assumption).
@@ -220,7 +220,7 @@ namespace pandora_exploration
       octomap::KeyRay keyRay;
       if (!coverageMap3d_->computeRayKeys(begin, end, keyRay))
       {
-        ROS_ERROR("[SENSOR_COVERAGE_SPACE_CHECKER %d] Compute ray went out of range!",
+        ROS_ERROR("[PANDORA_SENSOR_COVERAGE_SPACE_CHECKER %d] Compute ray went out of range!",
             __LINE__);
       }
       bool coversSpace = false, occupied = false;

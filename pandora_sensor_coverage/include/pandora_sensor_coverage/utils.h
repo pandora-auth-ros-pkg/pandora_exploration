@@ -65,7 +65,7 @@ namespace pandora_sensor_coverage
       */
     static void
     mapDilation(const nav_msgs::OccupancyGridPtr& in, int steps, int coords,
-                nav_msgs::OccupancyGridConstPtr checkMap=nav_msgs::OccupancyGridPtr());
+                nav_msgs::OccupancyGridConstPtr checkMap = nav_msgs::OccupancyGridPtr());
   };
 }  // namespace pandora_sensor_coverage
 }  // namespace pandora_exploration
