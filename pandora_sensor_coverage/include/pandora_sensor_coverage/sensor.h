@@ -102,13 +102,16 @@ namespace pandora_exploration
          */
         void setMap2d(const nav_msgs::OccupancyGridConstPtr& map2dPtr)
         {
+          ROS_WARN("map callback: sensor");
           map2dPtr_ = map2dPtr;
           spaceChecker_->setMap2d(map2dPtr);
-          surfaceChecker_->setMap2d(map2dPtr);
+          if (surfaceCoverage_)
+            surfaceChecker_->setMap2d(map2dPtr);
         }
 
         void shareFusedCoverage(const nav_msgs::OccupancyGridPtr& fusedPtr)
         {
+          ROS_INFO("sensor: sharing pointer");
           spaceChecker_->shareFusedCoverage(fusedPtr);
         }
 

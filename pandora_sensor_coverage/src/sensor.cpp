@@ -117,6 +117,7 @@ namespace pandora_exploration
 
     void Sensor::coverageUpdate(const ros::TimerEvent& event)
     {
+      ROS_INFO("coverage callback");
       // If sensor is not open and working, do not update coverage patch.
       if (!sensorWorking_)
         return;
@@ -138,6 +139,7 @@ namespace pandora_exploration
         }
         initialized_ = true;
       }
+      ROS_INFO("filling");
 
       // If it does, fetch current transformation.
       ros::Time timeNow = ros::Time::now();
@@ -157,10 +159,10 @@ namespace pandora_exploration
         if (surfaceCoverage_)
         {
           surfaceChecker_->findCoverage(sensorTransform, baseTransform);
-          // surfaceChecker_->publishCoverage(GLOBAL_FRAME);
+          surfaceChecker_->publishCoverage(GLOBAL_FRAME);
         }
         spaceChecker_->findCoverage(sensorTransform, baseTransform);
-        // spaceChecker_->publishCoverage(GLOBAL_FRAME);
+        spaceChecker_->publishCoverage(GLOBAL_FRAME);
       }
       catch (TfException ex)
       {

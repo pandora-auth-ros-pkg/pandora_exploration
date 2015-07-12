@@ -188,6 +188,7 @@ namespace pandora_exploration
                 param)));
       }
 
+      ROS_INFO("sensor coverage: sharing pointer");
       for (ii = 0; ii < registeredSensors_.size(); ++ii)
       {
         registeredSensors_[ii]->shareFusedCoverage(fusedCoveragePtr_);
@@ -203,8 +204,10 @@ namespace pandora_exploration
     SensorCoverage::
     fuseCoverage(const ros::TimerEvent& event)
     {
+      ROS_INFO("fusing timer");
       if (!fusingCoverage_)
         return;
+      ROS_INFO("publish");
       fusedCoveragePtr_->header.stamp = ros::Time::now();
       fusedCoveragePublisher_.publish(fusedCoveragePtr_);
     }
@@ -256,6 +259,7 @@ namespace pandora_exploration
 
     void SensorCoverage::map2dUpdate(const nav_msgs::OccupancyGridConstPtr& msg)
     {
+      ROS_WARN("map callback: aligning fused coverage!");
       globalMap2dPtr_ = msg;
 
       Utils::alignWithNewMap(msg, fusedCoveragePtr_);

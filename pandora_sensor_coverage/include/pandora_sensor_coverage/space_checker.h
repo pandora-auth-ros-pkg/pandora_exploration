@@ -113,6 +113,7 @@ namespace pandora_exploration
           virtual void
           setMap2d(const nav_msgs::OccupancyGridConstPtr& map2dPtr)
           {
+            ROS_WARN("map callback: aligning space_coverage!");
             map2dPtr_ = map2dPtr;
             Utils::alignWithNewMap(map2dPtr_, coveredSpace_);
           }
