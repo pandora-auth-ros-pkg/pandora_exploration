@@ -57,7 +57,7 @@
 
 #include "state_manager/state_client.h"
 
-#include "sensor_coverage/sensor.h"
+#include "pandora_sensor_coverage/sensor.h"
 
 namespace pandora_exploration
 {
@@ -123,6 +123,9 @@ namespace pandora_exploration
             std_srvs::Empty::Request& rq,
             std_srvs::Empty::Response& rs);
 
+        void
+        resetFusedCoverage();
+
       private:
         //!< This node's NodeHandle.
         NodeHandlePtr nh_;
@@ -136,12 +139,17 @@ namespace pandora_exploration
         //!< server for coverage flushing service.
         ros::ServiceServer flushService_;
 
+        ros::Publisher fusedCoveragePublisher_;
+        bool fusingCoverage_;
+
+        nav_msgs::OccupancyGridPtr fusedCoveragePtr_;
+
         //!< Robot's current mode of operation.
         int currentState_;
         //!< 3d map recieved from SLAM.
         boost::shared_ptr<octomap::OcTree*> globalMap3dPtrPtr_;
         //!< 2d map recieved from SLAM.
-        nav_msgs::OccupancyGridPtr globalMap2dPtr_;
+        nav_msgs::OccupancyGridConstPtr globalMap2dPtr_;
         //!< vector containing all sensors registered to track their views and
         //!< make their coverage patches.
         std::vector<SensorPtr> registeredSensors_;
