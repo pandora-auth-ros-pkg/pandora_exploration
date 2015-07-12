@@ -144,8 +144,8 @@ namespace pandora_exploration
             CELL(cell.x(), cell.y(), coveredSpace_) = covered;
             CELL(cell.x(), cell.y(), fusedCoveragePtr_) = covered;
           }
-          Utils::mapDilation(coveredSpace_, 1, COORDS(cell.x(), cell.y(), coveredSpace_));
-          Utils::mapDilation(fusedCoveragePtr_, 1, COORDS(cell.x(), cell.y(), fusedCoveragePtr_));
+          Utils::mapDilation(coveredSpace_, 1, COORDS(cell.x(), cell.y(), coveredSpace_), map2dPtr_);
+          Utils::mapDilation(fusedCoveragePtr_, 1, COORDS(cell.x(), cell.y(), fusedCoveragePtr_), map2dPtr_);
           cell.x() += resolution * cos(sensorYaw_ + angle);
           cell.y() += resolution * sin(sensorYaw_ + angle);
 
@@ -159,25 +159,21 @@ namespace pandora_exploration
       // Exclude all cells that are currently truly unknown or occupied. Count all those
       // that are covered indeed.
       unsigned int cellsCovered = 0;
-      for (int ii = 0; ii < coveredSpace_->info.width; ++ii)
+      for (int xx = 0; xx < coveredSpace_->data.size(); ++xx)
       {
-        for (int jj = 0; jj < coveredSpace_->info.height; ++jj)
-        {
-          if (coveringUnknown_)
-            isFree = map2dPtr_->data[ii + jj * map2dPtr_->info.width] <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
-          else
-            isFree = map2dPtr_->data[ii + jj * map2dPtr_->info.width] < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+        // if (coveringUnknown_)
+        //   isFree = map2dPtr_->data[xx] <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+        // else
+        //   isFree = map2dPtr_->data[xx] < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
 
-          if (!isFree)
-          {
-            coveredSpace_->data[ii + jj * coveredSpace_->info.width] = 0;
-            fusedCoveragePtr_->data[ii + jj * coveredSpace_->info.width] = 0;
-          }
-          if (coveredSpace_->data[ii + jj * coveredSpace_->info.width] != 0)
-          {
-            cellsCovered++;
-          }
-        }
+        // if (!isFree)
+        // {
+        //   coveredSpace_->data[xx] = 0;
+        // }
+        // if (coveredSpace_->data[xx] != 0)
+        // {
+        //   cellsCovered++;
+        // }
       }
 
       // Calculate total area explored according to this sensor.
@@ -198,8 +194,8 @@ namespace pandora_exploration
           yn = sin(robotYaw_) * x + cos(robotYaw_) * y + robotPosition_.y();
           CELL(xn, yn, coveredSpace_) = 100;
           CELL(xn, yn, fusedCoveragePtr_) = 100;
-          Utils::mapDilation(coveredSpace_, 1, COORDS(xn, yn, coveredSpace_));
-          Utils::mapDilation(fusedCoveragePtr_, 1, COORDS(xn, yn, fusedCoveragePtr_));
+          Utils::mapDilation(coveredSpace_, 1, COORDS(xn, yn, coveredSpace_), map2dPtr_);
+          Utils::mapDilation(fusedCoveragePtr_, 1, COORDS(xn, yn, fusedCoveragePtr_), map2dPtr_);
         }
       }
     }
