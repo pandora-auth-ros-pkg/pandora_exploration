@@ -3,7 +3,7 @@ footprint:
   height: 0.36
 
 map_origin: SLAM
-occupied_cell_thres: 0.5
+occupied_cell_thres: 0.51
 global_frame: /map
 robot_base_frame: /base_footprint
 max_height: 1.00

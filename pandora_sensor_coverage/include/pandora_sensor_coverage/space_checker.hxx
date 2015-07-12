@@ -118,7 +118,7 @@ namespace pandora_exploration
         cell.y() = resolution * sin(sensorYaw_ + angle) + currY;
 
         while (CELL(cell.x(), cell.y(), map2dPtr_)
-            < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100)
+            <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100)
             && pandora_data_fusion::pandora_data_fusion_utils::Utils::
                distanceBetweenPoints2D(octomap::pointOctomapToMsg(sensorPosition_),
                  octomap::pointOctomapToMsg(cell)) < SENSOR_RANGE)
@@ -148,7 +148,7 @@ namespace pandora_exploration
       {
         for (int jj = 0; jj < coveredSpace_->info.height; ++jj)
         {
-          if (map2dPtr_->data[ii + jj * map2dPtr_->info.width] >= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100))
+          if (map2dPtr_->data[ii + jj * map2dPtr_->info.width] > static_cast<int8_t>(OCCUPIED_CELL_THRES * 100))
           {
             coveredSpace_->data[ii + jj * coveredSpace_->info.width] = 0;
             fusedCoveragePtr_->data[ii + jj * coveredSpace_->info.width] = 0;
