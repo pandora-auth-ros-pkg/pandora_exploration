@@ -113,7 +113,6 @@ namespace pandora_exploration
           virtual void
           setMap2d(const nav_msgs::OccupancyGridConstPtr& map2dPtr)
           {
-            ROS_WARN("map callback: aligning space_coverage!");
             map2dPtr_ = map2dPtr;
             Utils::alignWithNewMap(map2dPtr_, coveredSpace_);
           }
@@ -131,6 +130,8 @@ namespace pandora_exploration
         protected:
           //!< If space coverage is considered as a binary value or as a percentage.
           bool binary_;
+	  //!< Is covering unknown?
+	  bool coveringUnknown_;
           //!< Do we use for 3d map, the produced map by surface checker?
           bool surfaceCoverage_;
           //!< Sensor's space coverage map.

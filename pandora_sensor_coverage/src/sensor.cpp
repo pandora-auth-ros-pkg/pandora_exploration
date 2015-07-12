@@ -117,7 +117,6 @@ namespace pandora_exploration
 
     void Sensor::coverageUpdate(const ros::TimerEvent& event)
     {
-      ROS_INFO("coverage callback");
       // If sensor is not open and working, do not update coverage patch.
       if (!sensorWorking_)
         return;
@@ -139,7 +138,6 @@ namespace pandora_exploration
         }
         initialized_ = true;
       }
-      ROS_INFO("filling");
 
       // If it does, fetch current transformation.
       ros::Time timeNow = ros::Time::now();

@@ -85,6 +85,12 @@ namespace pandora_exploration
         ROS_BREAK();
       }
 
+      if (!nh_->getParam(frameName_+"/covering_unknown", coveringUnknown_))
+      {
+        ROS_FATAL("%s covering unknown coverage param not found", frameName_.c_str());
+        ROS_BREAK();
+      }
+
       getParameters();
     }
 
@@ -109,6 +115,7 @@ namespace pandora_exploration
       float fov = (SENSOR_HFOV / 180.0) * PI;
       octomap::point3d cell;
 
+      bool isFree;
       // Raycast on 2d map rays that orient between -fov_x/2 and fov_x/2 and
       // find how to much covered space (line) corresponds to a 2d cell of
       // the map inside the raycasting area.
@@ -117,9 +124,12 @@ namespace pandora_exploration
         cell.x() = resolution * cos(sensorYaw_ + angle) + currX;
         cell.y() = resolution * sin(sensorYaw_ + angle) + currY;
 
-        while (CELL(cell.x(), cell.y(), map2dPtr_)
-            <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100)
-            && pandora_data_fusion::pandora_data_fusion_utils::Utils::
+        if (coveringUnknown_)
+          isFree = CELL(cell.x(), cell.y(), map2dPtr_) <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+        else
+          isFree = CELL(cell.x(), cell.y(), map2dPtr_) < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+
+        while (isFree && pandora_data_fusion::pandora_data_fusion_utils::Utils::
                distanceBetweenPoints2D(octomap::pointOctomapToMsg(sensorPosition_),
                  octomap::pointOctomapToMsg(cell)) < SENSOR_RANGE)
         {
@@ -138,6 +148,11 @@ namespace pandora_exploration
           Utils::mapDilation(fusedCoveragePtr_, 1, COORDS(cell.x(), cell.y(), fusedCoveragePtr_));
           cell.x() += resolution * cos(sensorYaw_ + angle);
           cell.y() += resolution * sin(sensorYaw_ + angle);
+
+          if (coveringUnknown_)
+            isFree = CELL(cell.x(), cell.y(), map2dPtr_) <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+          else
+            isFree = CELL(cell.x(), cell.y(), map2dPtr_) < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
         }
       }
 
@@ -148,7 +163,12 @@ namespace pandora_exploration
       {
         for (int jj = 0; jj < coveredSpace_->info.height; ++jj)
         {
-          if (map2dPtr_->data[ii + jj * map2dPtr_->info.width] > static_cast<int8_t>(OCCUPIED_CELL_THRES * 100))
+          if (coveringUnknown_)
+            isFree = map2dPtr_->data[ii + jj * map2dPtr_->info.width] <= static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+          else
+            isFree = map2dPtr_->data[ii + jj * map2dPtr_->info.width] < static_cast<int8_t>(OCCUPIED_CELL_THRES * 100);
+
+          if (!isFree)
           {
             coveredSpace_->data[ii + jj * coveredSpace_->info.width] = 0;
             fusedCoveragePtr_->data[ii + jj * coveredSpace_->info.width] = 0;
@@ -291,4 +311,3 @@ namespace pandora_exploration
 
 }  // namespace pandora_sensor_coverage
 }  // namespace pandora_exploration
-
