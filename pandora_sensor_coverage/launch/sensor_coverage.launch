@@ -1,7 +1,7 @@
 <launch>
 
   <!--  Sensor Coverage  -->
-  <node pkg="pandora_sensor_coverage" type="sensor_coverage_node"              
+  <node pkg="pandora_sensor_coverage" type="pandora_sensor_coverage_node"              
       name="sensor_coverage" respawn="false" output="screen" ns="exploration"
       launch-prefix="gdb -ex run --args" /> 
 
