@@ -130,6 +130,8 @@ namespace pandora_exploration
         protected:
           //!< If space coverage is considered as a binary value or as a percentage.
           bool binary_;
+	  //!< Is covering unknown?
+	  bool coveringUnknown_;
           //!< Do we use for 3d map, the produced map by surface checker?
           bool surfaceCoverage_;
           //!< Sensor's space coverage map.
