@@ -34,6 +34,6 @@ coverage:
 
   cost_functions:
     size_scale: 0.15
-    dist_scale: 0.55
-    alignment_scale: 0.2
+    dist_scale: 0.45
+    alignment_scale: 0.45
     visited_scale: 0.1
