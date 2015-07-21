@@ -13,10 +13,10 @@ explore:
   visualize_paths: true
 
   cost_functions:
-    size_scale: 2.0
-    dist_scale: 0.8
-    alignment_scale: 1.0
-    visited_scale: 2.0
+    size_scale: 0.15
+    dist_scale: 0.45
+    alignment_scale: 0.15
+    visited_scale: 0.3
 
 coverage:
   # call move base service
