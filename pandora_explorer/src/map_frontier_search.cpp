@@ -22,7 +22,8 @@ std::list<Frontier> MapFrontierSearch::searchFrom(geometry_msgs::Point position)
   std::list<Frontier> frontier_list;
 
   // make sure map is consistent and locked for duration of search
-  boost::unique_lock<boost::shared_mutex> lock(*(costmap_->getLock()));
+  boost::unique_lock<costmap_2d::Costmap2D::mutex_t>
+    lock(*(costmap_->getMutex()));
 
   // Sanity check that robot is inside costmap bounds before searching
   unsigned int mx, my;
